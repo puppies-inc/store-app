@@ -1,24 +1,59 @@
-# README
+# Store Demo App
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+Minimal Rails 8 demo application for managing products.
 
-Things you may want to cover:
+## Stack
 
-* Ruby version
+- Ruby 3.4.8
+- Rails 8.1
+- PostgreSQL
+- Propshaft + jsbundling-rails + cssbundling-rails
+- Tailwind CSS (via `@tailwindcss/cli`)
 
-* System dependencies
+## Features
 
-* Configuration
+- `Product` resource with full CRUD
+- `Product` has one attribute: `name`
+- Homepage (`/`) points to `products#index`
 
-* Database creation
+## Setup
 
-* Database initialization
+```bash
+bin/setup
+```
 
-* How to run the test suite
+If needed, run manually:
 
-* Services (job queues, cache servers, search engines, etc.)
+```bash
+bundle install
+npm install
+bin/rails db:prepare
+npm run build
+npm run build:css
+```
 
-* Deployment instructions
+## Run the app
 
-* ...
+```bash
+bin/dev
+```
+
+`bin/dev` starts Rails and asset watchers.
+
+## Run tests
+
+```bash
+bin/rails test
+```
+
+## Demo flow
+
+1. Open `/`
+2. Create product
+3. Edit product name
+4. Delete product
+
+## Notes
+
+- This app is intentionally simple and optimized for demos.
+- Keep domain scope minimal unless explicitly requested.
