@@ -2,8 +2,10 @@
   "name": "app",
   "private": true,
   "devDependencies": {
+    "@daytonaio/sdk": "^0.144.0",
     "@tailwindcss/cli": "^4.1.13",
-    "esbuild": "^0.25.9"
+    "esbuild": "^0.25.9",
+    "tsx": "^4.21.0"
   },
   "scripts": {
     "build": "esbuild app/javascript/*.* --bundle --sourcemap --format=esm --outdir=app/assets/builds --public-path=/assets",

@@ -48,8 +48,9 @@ bin/rails test
 
 ## Daytona sandbox
 
-Use [docs/daytona.md](docs/daytona.md) to run this project with Daytona + Docker Compose (`app` + Postgres sidecar) and Codex CLI preinstalled.
-Quick commands: `bin/daytona-up` and `bin/daytona-down`.
+Use [docs/daytona.md](docs/daytona.md) to run this project in a Daytona sandbox with local Postgres + Codex CLI preinstalled.
+Local Docker Compose helper commands: `bin/daytona-up` and `bin/daytona-down`.
+TypeScript SDK helper: `npx tsx scripts/daytona-create.ts`.
 
 ## Demo flow
 

@@ -2,8 +2,8 @@
 
 This project includes:
 
-- `Dockerfile.daytona` for the app sandbox image (with Codex CLI)
-- `docker-compose.daytona.yml` for app + Postgres sidecar
+- `Dockerfile.daytona` for a self-contained Daytona sandbox (Rails + local Postgres + Codex CLI)
+- `docker-compose.daytona.yml` for optional local app + Postgres sidecar
 
 ## Prerequisites
 
@@ -19,19 +19,20 @@ daytona snapshot create \
   .
 ```
 
-## Start app + Postgres
+## Start in Daytona
 
 ```bash
-bin/daytona-up
+daytona create . --dockerfile Dockerfile.daytona --name store-sandbox
 ```
 
-This starts:
+The sandbox starts with `bin/daytona-start`, which:
 
 - Ruby `3.4.8`
 - Node `23.11.0`
-- Postgres `16` sidecar (`db` service)
+- PostgreSQL in the same container
 - Codex CLI (`@openai/codex`)
-- Rails app on `http://localhost:3000`
+- Runs `bin/rails db:prepare`
+- Starts `bin/dev`
 
 ## Use Codex in the sandbox
 
@@ -41,15 +42,41 @@ codex --help
 
 If you need authentication inside the sandbox, follow the Codex CLI login flow there.
 
-## Optional: create a Daytona workspace first
+## Optional DB overrides
 
-If you want this repo opened in Daytona before running Compose:
+You can override defaults in the Daytona sandbox env:
 
 ```bash
-daytona create . --dockerfile Dockerfile.daytona --name store-sandbox
+DAYTONA_DB_NAME=store_development
+DAYTONA_DB_USER=store
+DAYTONA_DB_PASSWORD=store
 ```
 
-Then run inside that workspace:
+If `DATABASE_URL` is already set, it is respected.
+
+## TypeScript SDK flow
+
+Create sandbox with:
+
+```bash
+npx tsx scripts/daytona-create.ts
+```
+
+Useful env vars:
+
+```bash
+DAYTONA_SANDBOX_NAME=store-sandbox
+DAYTONA_SNAPSHOT_NAME=store-rails-codex
+DAYTONA_AUTO_STOP_INTERVAL=0
+DAYTONA_AUTO_ARCHIVE_INTERVAL=10080
+DAYTONA_AUTO_DELETE_INTERVAL=-1
+```
+
+The SDK script creates/reuses a snapshot from `Dockerfile.daytona`, then creates/starts the sandbox and leaves it running.
+
+## Local Docker Compose workflow
+
+For local non-Daytona usage:
 
 ```bash
 bin/daytona-up

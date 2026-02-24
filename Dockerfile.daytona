@@ -17,6 +17,7 @@ RUN apt-get update -qq && \
       libvips \
       libyaml-dev \
       pkg-config \
+      postgresql \
       postgresql-client \
       python-is-python3 && \
     rm -rf /var/lib/apt/lists /var/cache/apt/archives
@@ -35,6 +36,8 @@ RUN npm ci
 
 COPY . .
 
+RUN chmod +x bin/daytona-start
+
 EXPOSE 3000
 
-CMD ["bash"]
+CMD ["bin/daytona-start"]
