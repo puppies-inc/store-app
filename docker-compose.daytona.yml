@@ -1,0 +1,35 @@
+services:
+  app:
+    build:
+      context: .
+      dockerfile: Dockerfile.daytona
+    working_dir: /workspaces/store
+    command: bash -lc "bin/rails db:prepare && bin/dev"
+    environment:
+      DATABASE_URL: postgres://postgres:postgres@db:5432/store_development
+    depends_on:
+      db:
+        condition: service_healthy
+    ports:
+      - "3000:3000"
+    volumes:
+      - .:/workspaces/store
+
+  db:
+    image: postgres:16
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+      POSTGRES_DB: store_development
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U postgres -d store_development"]
+      interval: 5s
+      timeout: 3s
+      retries: 10
+    ports:
+      - "5432:5432"
+    volumes:
+      - postgres-data:/var/lib/postgresql/data
+
+volumes:
+  postgres-data:

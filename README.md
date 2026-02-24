@@ -46,6 +46,11 @@ bin/dev
 bin/rails test
 ```
 
+## Daytona sandbox
+
+Use [docs/daytona.md](docs/daytona.md) to run this project with Daytona + Docker Compose (`app` + Postgres sidecar) and Codex CLI preinstalled.
+Quick commands: `bin/daytona-up` and `bin/daytona-down`.
+
 ## Demo flow
 
 1. Open `/`

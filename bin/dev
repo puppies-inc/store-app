@@ -8,4 +8,5 @@ fi
 # Default to port 3000 if not specified
 export PORT="${PORT:-3000}"
 
-exec foreman start -f Procfile.dev --env /dev/null "$@"
+FOREMAN_BIN="$(ruby -e 'print Gem.bindir')/foreman"
+exec "$FOREMAN_BIN" start -f Procfile.dev --env /dev/null "$@"
