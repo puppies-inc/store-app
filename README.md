@@ -1,4 +1,4 @@
-# Store Demo App
+# Store Demo App Test
 
 Minimal Rails 8 demo application for managing products.
 
